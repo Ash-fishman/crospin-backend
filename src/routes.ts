@@ -7,7 +7,7 @@ import { UsersModule } from './modules/users/users.module'
 
 export const routes: Routes = [
   {
-    path: '/',
+    path: '/backend-crospin',
     children: [
       { module: AppModule, path: '/auth' },
       { module: HealthcheckModule, path: '/healthcheck' },

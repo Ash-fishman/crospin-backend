@@ -11,6 +11,7 @@ export class AuthTest extends AbstractTestSuite {
   @Test('Facebook Login')
   public async facebookLogin() {
     const FACEBOOK_TEST_ACCESS_TOKEN = getEnv('FACEBOOK_TEST_ACCESS_TOKEN', '')
+    console.log(FACEBOOK_TEST_ACCESS_TOKEN)
 
     const {
       body: { access_token },

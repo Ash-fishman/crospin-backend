@@ -10,6 +10,9 @@ export class User extends AbstractEntity {
   })
   emailAddress: string
 
+  @Column({ name: 'photo_id', nullable: true })
+  photoId: string
+
   @Column('character varying', { length: 255, name: 'full_name' })
   fullName: string
 

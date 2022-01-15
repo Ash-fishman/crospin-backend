@@ -1,5 +1,5 @@
 import {
-  Controller, HttpCode, HttpStatus, Inject, Post, Request, UploadedFile, UseGuards, UseInterceptors
+  Controller, Get, HttpCode, HttpStatus, Inject, Post, Request, Response, UploadedFile, UseGuards, UseInterceptors
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiResponse } from '@nestjs/swagger'
@@ -21,6 +21,15 @@ export class UsersController {
   @HttpCode(HttpStatus.CREATED)
   async uploadPhoto(@Request() { user }: CrospinRequest, @UploadedFile() photo: Express.Multer.File) {
     await this.usersService.uploadPhoto(user, photo)
+  }
+
+  @ApiResponse({ status: HttpStatus.OK })
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Get('get/photo')
+  @Transactional()
+  async get(@Request() { user }: CrospinRequest, @Response() response): Promise<void> {
+    return this.usersService.getPhoto(user, response);
   }
 
 }

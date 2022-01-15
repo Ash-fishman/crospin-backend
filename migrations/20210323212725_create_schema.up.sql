@@ -4,6 +4,7 @@ CREATE TABLE users (
     first_name varchar(256),
     last_name varchar(256),
 	full_name varchar(256) NOT NULL,
+    photo_id uuid NULL,
     role varchar(256) NULL,
 	provider varchar(255) NOT NULL,
     deleted_at timestamptz

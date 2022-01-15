@@ -1,5 +1,5 @@
 import { S3 } from 'aws-sdk'
-import { PutObjectRequest } from 'aws-sdk/clients/s3'
+import { GetObjectOutput, PutObjectRequest } from 'aws-sdk/clients/s3'
 import * as getEnv from 'getenv'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -44,3 +44,12 @@ const uploadFile = async (file: Express.Multer.File, Bucket: string): Promise<st
   await s3.putObject(params).promise()
   return id
 }
+
+export const getPhoto = async (id: string): Promise<GetObjectOutput> => {
+  const params: S3.Types.PutObjectRequest = {
+    Bucket: AWS_S3_PHOTOS_BUCKET,
+    Key: id,
+  };
+
+  return s3.getObject(params).promise();
+};

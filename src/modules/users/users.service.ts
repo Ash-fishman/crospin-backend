@@ -1,11 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserTokenInfo } from '../../interfaces/request.interface'
 import { Repository } from 'typeorm'
 import { Role } from '../../enums/role.enum'
 import { Logger } from '../../helpers/logger.helper'
 import { User, UserFile } from '../../models'
-import { uploadPhoto } from '../../helpers/aws.helper'
+import { getPhoto, uploadPhoto } from '../../helpers/aws.helper'
 import { FileType } from '../../enums/file-type.enum'
 
 @Injectable()
@@ -50,8 +50,22 @@ export class UsersService {
     this.logger.debug('Uploading photo:' + photo.originalname)
     const fileId = await uploadPhoto(photo)
     this.logger.debug('Saving photo with file id:' + fileId)
-    await this.userFileRepository.save({ user, fileId, originalFileName: photo.originalname, mimeType: photo.mimetype, size: photo.size, fileType: FileType.PHOTO })
+    const userFile = await this.userFileRepository.save({ user, fileId, originalFileName: photo.originalname, mimeType: photo.mimetype, size: photo.size, fileType: FileType.PHOTO })
+
+    this.logger.debug('Updating user file id:' + userFile.id)
+    await this.userRepository.update(user.id, { photoId: userFile.id })
   }
 
+  async getPhoto(user: UserTokenInfo, response): Promise<void> {
+    const current = await this.userRepository.findOne(user.id);
+    if (!current) throw new NotFoundException();
+
+    const photo = await getPhoto(current.photoId);
+
+    response.setHeader('Type', 'image');
+    response.setHeader('Content-Disposition', 'inline; filename=' + current.id);
+    response.setHeader('Content-Length', photo.ContentLength);
+    response.status(HttpStatus.OK).send(photo.Body);
+  }
 
 }
