@@ -36,7 +36,7 @@ export class ReconciliationService {
       .andWhere('a.fileType = :fileType', { fileType: FileType.AUDIO })
 
     if (filter.name) {
-      query.where("LOWER(a.originalFileName) = LOWER(:name)", { name: filter.name })
+      query.where('LOWER(a.originalFileName) = LOWER(:name)', { name: filter.name })
     }
 
     return await query.getMany()

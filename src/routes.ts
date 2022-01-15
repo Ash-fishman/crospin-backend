@@ -3,6 +3,7 @@ import { Route, Routes } from 'nest-router'
 import { AppModule } from './modules/app/app.module'
 import { HealthcheckModule } from './modules/healthcheck/healthcheck.module'
 import { ReconciliationModule } from './modules/reconciliation/reconciliation.module'
+import { UsersModule } from './modules/users/users.module'
 
 export const routes: Routes = [
   {
@@ -11,6 +12,7 @@ export const routes: Routes = [
       { module: AppModule, path: '/auth' },
       { module: HealthcheckModule, path: '/healthcheck' },
       { module: ReconciliationModule, path: '/reconciliation' },
+      { module: UsersModule, path: '/users' },
     ],
   },
 ]

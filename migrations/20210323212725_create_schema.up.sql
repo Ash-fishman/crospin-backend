@@ -25,5 +25,5 @@ CREATE TABLE users_files (
 );
 
 ALTER TABLE users_files ADD CONSTRAINT users_files_pkey PRIMARY KEY (id);
-ALTER TABLE users_files ADD CONSTRAINT users_files_types_constraint CHECK (file_type IN ('audio','contract'));
+ALTER TABLE users_files ADD CONSTRAINT users_files_types_constraint CHECK (file_type IN ('audio','contract','photo'));
 ALTER TABLE users_files ADD CONSTRAINT users_files_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id);
