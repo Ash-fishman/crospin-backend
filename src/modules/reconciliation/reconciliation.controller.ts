@@ -10,7 +10,9 @@ import {
   UseGuards,
   HttpStatus,
   Request,
-  HttpCode
+  HttpCode,
+  Get,
+  Query
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ReconciliationService } from './reconciliation.service'
@@ -24,6 +26,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { ApiResponse } from '@nestjs/swagger'
 import { CrospinRequest } from '../../interfaces/request.interface'
 import { ListAudiosResponse } from './dto/list-audios-response.dto'
+import { ListAudiosRequestDto } from './dto/list-audios-request.dto'
 
 interface MultiplexDTO {
   video: string;
@@ -63,17 +66,17 @@ export class ReconciliationController {
   @ApiResponse({ status: HttpStatus.CREATED })
   @HttpCode(HttpStatus.CREATED)
   async uploadContract(@Request() { user }: CrospinRequest, @UploadedFile() file: Express.Multer.File) {
-    await this.reconciliationService.uploadAudio(user, file)
+    await this.reconciliationService.uploadContract(user, file)
   }
 
-  @Post('list/audios')
+  @Get('list/audios')
   @Roles(Role.Artist)
   @UseGuards(JwtAuthGuard)
   @Transactional()
   @ApiResponse({ status: HttpStatus.OK })
   @HttpCode(HttpStatus.OK)
-  async listAudios(@Request() { user }: CrospinRequest): Promise<ListAudiosResponse> {
-    const userFiles = await this.reconciliationService.listAudios(user)
+  async listAudios(@Request() { user }: CrospinRequest, @Query() filter: ListAudiosRequestDto): Promise<ListAudiosResponse> {
+    const userFiles = await this.reconciliationService.listAudios(user, filter)
     return new ListAudiosResponse(userFiles)
   }
 

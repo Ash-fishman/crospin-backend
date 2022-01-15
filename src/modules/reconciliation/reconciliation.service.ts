@@ -6,6 +6,7 @@ import { uploadAudio, uploadContract } from '../../helpers/ipfs.helper'
 import { Logger } from '../../helpers/logger.helper'
 import { UserTokenInfo } from '../../interfaces/request.interface'
 import { UserFile } from '../../models/user-file.entity'
+import { ListAudiosRequestDto } from './dto/list-audios-request.dto'
 
 @Injectable()
 export class ReconciliationService {
@@ -28,8 +29,16 @@ export class ReconciliationService {
     this.logger.debug('Saving contract with file id:' + fileId)
     await this.userFileRepository.save({ user, fileId, originalFileName: audio.originalname, mimeType: audio.mimetype, size: audio.size, fileType: FileType.CONTRACT })
   }
-  async listAudios(user: UserTokenInfo): Promise<Array<UserFile>> {
+  async listAudios(user: UserTokenInfo, filter: ListAudiosRequestDto): Promise<Array<UserFile>> {
     this.logger.debug('Listing audios of user:' + user.emailAddress)
-    return await this.userFileRepository.find({ userId: user.id, fileType: FileType.AUDIO })
+    const query = this.userFileRepository.createQueryBuilder('a')
+      .where('a.userId = :userId', { userId: user.id })
+      .andWhere('a.fileType = :fileType', { fileType: FileType.AUDIO })
+
+    if (filter.name) {
+      query.where("LOWER(a.originalFileName) = LOWER(:name)", { name: filter.name })
+    }
+
+    return await query.getMany()
   }
 }

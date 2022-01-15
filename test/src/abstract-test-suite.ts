@@ -46,7 +46,7 @@ export abstract class AbstractTestSuite {
   }
 
   public httpArtistGet(path: string) {
-    return this.httpTokenPut(path, this.testTokens.artistToken)
+    return this.httpTokenGet(path, this.testTokens.artistToken)
   }
 
 
