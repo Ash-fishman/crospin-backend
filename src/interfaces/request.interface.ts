@@ -6,6 +6,6 @@ export interface UserTokenInfo {
   fullName: string;
   role: string;
 }
-export interface EthglobalRequest extends Request {
+export interface CrospinRequest extends Request {
   user: UserTokenInfo;
 }

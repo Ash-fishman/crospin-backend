@@ -20,13 +20,13 @@ export class TestTokens implements OnModuleInit {
 
   async onModuleInit() {
     const artist = await this.connection.manager.save(User, {
-      emailAddress: `${uuidv4()}.artist@ethglobal.com`,
+      emailAddress: `${uuidv4()}.artist@crospin.com`,
       fullName: `${faker.name.firstName()} ${faker.name.lastName()}`,
       role: Role.Artist,
       provider: Provider.Facebook,
     })
     const contentCreator = await this.connection.manager.save(User, {
-      emailAddress: `${uuidv4()}.contentcreator@ethglobal.com`,
+      emailAddress: `${uuidv4()}.contentcreator@crospin.com`,
       fullName: `${faker.name.firstName()} ${faker.name.lastName()}`,
       role: Role.ContentCreator,
       provider: Provider.Facebook,

@@ -9,7 +9,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-            "awslogs-group": "/ecs/ethglobal-api",
+            "awslogs-group": "/ecs/crospin-api",
             "awslogs-region": "us-east-2",
             "awslogs-stream-prefix": "aws/ecs"
         }
@@ -64,14 +64,14 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "ethglobal-api"
+      "name": "crospin-api"
     }
   ],
   "placementConstraints": [],
   "memory": "512",
   "taskRoleArn": null,
   "taskDefinitionArn": "<TASK_DEFINITION>",
-  "family": "dev-ethglobal-api",
+  "family": "dev-crospin-api",
   "pidMode": null,
   "networkMode": "awsvpc",
   "cpu": "256",

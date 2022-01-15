@@ -17,7 +17,7 @@ import * as testsToRun from './src/tests'
 const TESTTORUN = getEnv('TESTTORUN', null)
 const SUITETORUN = getEnv('SUITETORUN', null)
 
-describe('Ethglobal Backend Test Suite', function () {
+describe('Crospin Backend Test Suite', function () {
   let app: INestApplication
   this.timeout(0)
 

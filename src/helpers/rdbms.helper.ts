@@ -23,7 +23,7 @@ export const rdbmsParams = (): TypeOrmModuleOptions => {
     database: POSTGRES_DATABASE,
     logging: POSTGRES_LOGGING,
     extra: {
-      application_name: 'ethglobal',
+      application_name: 'crospin',
       min: 4,
       max: 40,
     },

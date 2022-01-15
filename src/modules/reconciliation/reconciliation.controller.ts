@@ -22,7 +22,7 @@ import { Roles } from '../../decorators/roles.decorator'
 import { Transactional } from 'typeorm-transactional-cls-hooked'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard'
 import { ApiResponse } from '@nestjs/swagger'
-import { EthglobalRequest } from '../../interfaces/request.interface'
+import { CrospinRequest } from '../../interfaces/request.interface'
 import { ListAudiosResponse } from './dto/list-audios-response.dto'
 
 interface MultiplexDTO {
@@ -51,7 +51,7 @@ export class ReconciliationController {
   @Transactional()
   @ApiResponse({ status: HttpStatus.CREATED })
   @HttpCode(HttpStatus.CREATED)
-  async uploadAudio(@Request() { user }: EthglobalRequest, @UploadedFile() file: Express.Multer.File) {
+  async uploadAudio(@Request() { user }: CrospinRequest, @UploadedFile() file: Express.Multer.File) {
     await this.reconciliationService.uploadAudio(user, file)
   }
 
@@ -62,7 +62,7 @@ export class ReconciliationController {
   @Transactional()
   @ApiResponse({ status: HttpStatus.CREATED })
   @HttpCode(HttpStatus.CREATED)
-  async uploadContract(@Request() { user }: EthglobalRequest, @UploadedFile() file: Express.Multer.File) {
+  async uploadContract(@Request() { user }: CrospinRequest, @UploadedFile() file: Express.Multer.File) {
     await this.reconciliationService.uploadAudio(user, file)
   }
 
@@ -72,7 +72,7 @@ export class ReconciliationController {
   @Transactional()
   @ApiResponse({ status: HttpStatus.OK })
   @HttpCode(HttpStatus.OK)
-  async listAudios(@Request() { user }: EthglobalRequest): Promise<ListAudiosResponse> {
+  async listAudios(@Request() { user }: CrospinRequest): Promise<ListAudiosResponse> {
     const userFiles = await this.reconciliationService.listAudios(user)
     return new ListAudiosResponse(userFiles)
   }

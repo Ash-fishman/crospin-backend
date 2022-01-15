@@ -1,4 +1,4 @@
-# ethglobal-backend
+# crospin-backend
 
 ## Installation Guide
 
@@ -48,7 +48,7 @@ To see coverage report, just execute index.html file on _coverage/lcov-report_ d
 
 To create a new test, all you have to do is:
 
-- Register your new test on <ethglobal-backend>/test/src/tests/index.ts file
+- Register your new test on <crospin-backend>/test/src/tests/index.ts file
 - Decorate test class with **@TestSuite** decorator and test method with **@Test** decorator
   Example:
 

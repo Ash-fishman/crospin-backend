@@ -11,7 +11,7 @@ import {
 import { ApiResponse } from '@nestjs/swagger'
 import { Transactional } from 'typeorm-transactional-cls-hooked'
 import { Logger } from '../../helpers/logger.helper'
-import { EthglobalRequest } from '../../interfaces/request.interface'
+import { CrospinRequest } from '../../interfaces/request.interface'
 import { AccessTokenType } from '../../types/access-token.type'
 import { AuthService } from '../auth/auth.service'
 import { FacebookAuthGuard } from '../auth/facebook-auth.guard'
@@ -31,7 +31,7 @@ export class AppController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(FacebookAuthGuard)
   async facebookLoginRedirect(
-    @Request() { user }: EthglobalRequest
+    @Request() { user }: CrospinRequest
   ): Promise<AccessTokenType> {
     this.logger.debug(`Facebook log in with user: ${user.emailAddress}`)
     return await this.authService.login(user)
@@ -42,7 +42,7 @@ export class AppController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(GoogleAuthGuard)
   async googleLoginRedirect(
-    @Request() { user }: EthglobalRequest
+    @Request() { user }: CrospinRequest
   ): Promise<AccessTokenType> {
     this.logger.debug(`Google log in with user: ${user.emailAddress}`)
     return await this.authService.login(user)
@@ -54,7 +54,7 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Transactional()
   async assignUserRole(
-    @Request() { user }: EthglobalRequest,
+    @Request() { user }: CrospinRequest,
     @Body() assignedRole: AssignRoleDto
   ) {
     this.logger.debug(`Assigning role to user: ${user.emailAddress}`)

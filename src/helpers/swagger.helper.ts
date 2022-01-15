@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 export const setupSwagger = (app: INestApplication) => {
   const config = new DocumentBuilder()
-    .setTitle('Ethglobal Backend')
+    .setTitle('Crospin Backend')
     .setVersion('1.0')
     .addBearerAuth()
     .build()
